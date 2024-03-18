@@ -2,7 +2,7 @@ const db = require('../database/db');
 
 const validateUser = (req, res) => {
   const { user_mobile, user_password } = req.body;
-  db.query('SELECT * FROM users where user_mobile=? and user_password=?',[user_mobile,user_password], (err, results) => {
+  db.query('SELECT * FROM users where BINARY user_mobile=? and BINARY user_password=?',[user_mobile,user_password], (err, results) => {
     if (err) {
       console.error('Error executing MySQL query:', err);
       res.status(500).json({ error: 'Internal Server Error' });
