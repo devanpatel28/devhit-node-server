@@ -90,11 +90,29 @@ const updateUser=(req,res)=>{
 });
 };
 
+const deleteuser = (req, res) => {
+  const { user_id } = req.body;
+  db.query('DELETE FROM users WHERE user_id = ?', [user_id], (err, result) => {
+    if (err) {
+      console.error('Error executing MySQL query:', err);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      if (result.affectedRows === 0) {
+        res.status(404).json({ error: 'User not found' });
+      } else {
+        res.json({ message: 'User deleted successfully' });
+      }
+    }
+  });
+};
+
+
 module.exports = {
   updateUser,
   getAllUsers,
   validateUser,
   getUserbyID,
   getUserbyMob,
-  updateUserPass
+  updateUserPass,
+  deleteuser
 };
