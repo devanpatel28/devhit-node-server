@@ -61,6 +61,24 @@ const getUserbyID=(req,res)=>{
 });
 };
 
+const getAdminbyID=(req,res)=>{
+  const {admin_id}=req.body;
+  db.query('SELECT * FROM admin where admin_id=?',[admin_id],(err,results)=>{
+    
+  if (err) {
+    console.error('Error executing MySQL query:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  } else {
+    if (results.length === 0) {
+      res.status(404).json({ error: 'User not found' });
+    }
+    else{
+      res.json(results);
+    }
+  }
+});
+};
+
 const getUserbyMob=(req,res)=>{
   const {user_mobile}=req.body;
   db.query('SELECT * FROM users where user_mobile=?',[user_mobile],(err,results)=>{
@@ -130,5 +148,6 @@ module.exports = {
   getUserbyMob,
   updateUserPass,
   deleteuser,
-  validateAdmin
+  validateAdmin,
+  getAdminbyID
 };
