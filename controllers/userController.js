@@ -16,7 +16,22 @@ const validateUser = (req, res) => {
     }
   });
 };
-
+const validateAdmin = (req, res) => {
+  const { user_mobile, user_password } = req.body;
+  db.query('SELECT * FROM admin where BINARY user_mobile=? and BINARY user_password=?',[user_mobile,user_password], (err, results) => {
+    if (err) {
+      console.error('Error executing MySQL query:', err);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      if (results.length === 0) {
+        res.status(404).json({ error: 'User not found' });
+      } else {
+        res.status(200);
+        res.json(results);
+      }
+    }
+  });
+};
 const getAllUsers = (req, res) => {
   db.query('SELECT * FROM users', (err, results) => {
     if (err) {
@@ -114,5 +129,6 @@ module.exports = {
   getUserbyID,
   getUserbyMob,
   updateUserPass,
-  deleteuser
+  deleteuser,
+  validateAdmin
 };
