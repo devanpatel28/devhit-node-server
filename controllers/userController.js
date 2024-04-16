@@ -33,7 +33,7 @@ const validateAdmin = (req, res) => {
   });
 };
 const getAllUsers = (req, res) => {
-  db.query('SELECT * FROM users', (err, results) => {
+  db.query('SELECT * FROM users where 0=0', (err, results) => {
     if (err) {
       console.error('Error executing MySQL query:', err);
       res.status(500).json({ error: 'Internal Server Error' });
