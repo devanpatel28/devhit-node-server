@@ -4,6 +4,7 @@ const user_controller = require('../controllers/userController');
 const router = express.Router();
 
 router.post('/allUsers', user_controller.getAllUsers);
+router.post('/addUser', user_controller.addUser);
 router.post('/userbyid', user_controller.getUserbyID);
 router.post('/adminbyid', user_controller.getAdminbyID);
 router.post('/userbymob', user_controller.getUserbyMob);

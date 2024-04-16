@@ -16,6 +16,25 @@ const validateUser = (req, res) => {
     }
   });
 };
+
+const addUser=(req,res)=>{
+  const {user_name, user_email, user_mobile, user_password, pro_id} =req.body;
+  db.query('INSERT INTO users (user_name, user_email, user_mobile, user_password, pro_id) VALUES (?, ?, ?, ?, ?);',[user_name, user_email, user_mobile, user_password, pro_id], (err, results) => {
+    if (err) {
+      console.error('Error executing MySQL query:', err);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      if (results.length === 0) {
+        res.status(404).json({ error: 'Project not found' });
+      }
+      else{
+        res.json(results);
+      }
+    }
+    });
+
+}
+
 const validateAdmin = (req, res) => {
   const { admin_mob, admin_pass } = req.body;
   db.query('SELECT * FROM admin where BINARY admin_mob=? and BINARY admin_pass=?',[admin_mob,admin_pass], (err, results) => {
@@ -149,5 +168,6 @@ module.exports = {
   updateUserPass,
   deleteuser,
   validateAdmin,
-  getAdminbyID
+  getAdminbyID,
+  addUser
 };
