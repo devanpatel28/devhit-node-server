@@ -1,7 +1,7 @@
 const db=require('../database/db')
 
 const getAllProject = (req, res) => {
-    db.query('SELECT * FROM projects where 0=0', (err, results) => {
+    db.query('SELECT * FROM projects', (err, results) => {
       if (err) {
         console.error('Error executing MySQL query:', err);
         res.status(500).json({ error: 'Internal Server Error' });
