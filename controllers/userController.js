@@ -17,8 +17,8 @@ const validateUser = (req, res) => {
   });
 };
 const validateAdmin = (req, res) => {
-  const { user_mobile, user_password } = req.body;
-  db.query('SELECT * FROM admin where BINARY admin_mob=? and BINARY admin_pass=?',[user_mobile,user_password], (err, results) => {
+  const { admin_mob, admin_pass } = req.body;
+  db.query('SELECT * FROM admin where BINARY admin_mob=? and BINARY admin_pass=?',[admin_mob,admin_pass], (err, results) => {
     if (err) {
       console.error('Error executing MySQL query:', err);
       res.status(500).json({ error: 'Internal Server Error' });
