@@ -5,7 +5,7 @@ const project_routes=require('./routes/project_routes')
 const inventory_routes=require('./routes/inventory_routes')
 const transaction_routes=require('./routes/user_transactions_routes')
 const emailRoutes = require('./routes/email_routes');
-
+const supplier_routes = require('./routes/supplier_routes');
 const db = require('./database/db'); 
 
 const cors = require("cors");
@@ -22,6 +22,7 @@ app.use('/user',user_routes);
 app.use('/projects', project_routes);
 app.use('/inventory',inventory_routes);
 app.use('/transaction',transaction_routes);
+app.use('/supplier',supplier_routes);
 
 
 app.listen(config.port, () => {
